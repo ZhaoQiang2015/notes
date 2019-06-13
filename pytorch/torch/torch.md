@@ -34,7 +34,7 @@ set the default floating point dtype to d. used as default floating point type f
 
 > `torch.get_default_dtype() -> torch.dtype`
 
-        get the current default floating point torch.dtype
+get the current default floating point torch.dtype
 
 ```python
 >>> torch.tensor([1.2, 3]).dtype    # initial default for floating point is torch.float32
@@ -342,3 +342,140 @@ tensor([1, 1],
         [4, 3])
 ```
 
+> `torch.index_select(input, dim, index, out=None) -> Tensor`
+
+从指定维度按索引取`input`中的数据
+
+* `Parameters`
+  * **input**(Tensor)
+  * **dim**(int)
+  * **index**(LongTensor)
+  * **out**(Tensor, optional)
+
+> `torch.masked_select(input, mask, out=None) -> Tensor`
+
+根据`mask`返回一个1-D tensor，`mask`与`input`的shape可以不一致, 不共享内存，新拷贝一份。
+
+* `Parameters`
+  * **input**(Tensor)
+  * **mask**(ByteTensor) - the tensor containing the binary mask to index with 
+  * **out**(Tensor, optional)
+
+> `torch.narrow(input, dimension, start, length) -> Tensor`
+
+从指定维度`dimension`上在`start`与`start+length`之间取数据，共享内存。
+
+* `Parameters`
+  * **input**(Tensor)
+  * **dimension**(int)
+  * **start**(int)
+  * **length**(int)
+
+> `torch.nonzero(input, out=None) -> Tensor`
+
+返回非零元素的下标索引
+
+* `Parameters`
+  * **input**(Tensor)
+  * **out**(LongTensor, optional)
+
+> `torch.reshape(input, shape) -> Tensor`
+
+* `Parameters`
+  * **input**(Tensor)
+  * **shape**(tuple of python:ints) - new shape
+
+> `torch.split(tensor, split_size_or_sections, dim=0)`
+
+沿指定维度`dim`对`tensor`分块，若`split_size_or_sections`是整数，整数分块，若是`list`，按`list`分块
+
+* `Parameters`
+  * **tensor**(Tensor)
+  * **split_size_or_sections**(int or list(int)) - size of a single chunk or list of sizes for each_chunk
+  * **dim**(int)
+
+> `torch.squeeze(input, dim=None, out=None) -> Tensor`
+
+return a tensor with all dimensions of `input` of size 1 removed.
+if input is of shape(A$\times$1$\times$B$\times$C$\times$1$\times$D) then the out tensor will be of shape: (A$\times$B$\times$C$\times$D).
+若`dim`给定，则在指定维度上操作，
+**共享内存**
+
+* `Parameters`
+  * **input**(Tensor)
+  * **dim**(int, optional)
+  * **out**(Tensor, optional)
+
+> `torch.stack(seq, dim=0, out=None) -> Tensor`
+
+沿着指定维度拼接tensors
+
+* `Parameters`
+  * **seq**(sequence of Tensors)
+  * **dim**(int)
+  * **out**(Tensor, optional)
+
+> `torch.t(input) -> Tensor`
+
+0-D和1-D tensor转置不变，2-D转置等价于`transpose(input, 0, 1)`
+
+* `Parameters`
+  * **input**(Tensor)
+
+> `torch.take(input, indices) -> Tensor`
+
+从指定`indices`上取`input`中的元素，`input`被当成1-D向量看待。
+
+* `Parameters`
+  * **input**(Tensor)
+  * **indices**(LongTensor)
+
+```python
+>>> src = torch.tensor([[4,3,5],
+                        [6,7,8]])
+>>> torch.take(src, torch.tensor([0,2,5]))
+tensor([4,5,8])
+```
+
+> `torch.transpose(input, dim0, dim1) -> Tensor`
+
+交换指定维度，共享内存
+
+* `Parameters`
+  * **input**(Tensor)
+  * **dim0**(int)
+  * **dim1**(int)
+
+> `torch.unbind(tensor, dim=0) -> seq`
+
+删除指定维度，返回一个`tuple`的切片在给定的维度上。
+
+* `Parameters`
+  * **tensor**(Tensor)
+  * **dim**(int)
+
+> `torch.unsqueeze(input, dim, out=None) -> Tensor`
+
+在指定位置rxty维度大小为1，共享内存。
+`dim`的取值范围`[-input.dim()-1, input.dim()+1)`
+
+* `Parameters`
+  * **input**(Tensor)
+  * **dim**(int)
+  * **out**(Tensor, optional)
+
+> `torch.where(condition, x, y) -> Tensor`
+
+return a tensor of elements selected from either `x` or `y`, depending on `condition`
+if condition:   $x_i$
+else:           $y_i$
+
+* `Parameters`
+  * **condition**(ByteTensor) - when true(nonzero), yield x, otherwise yield y
+  * **x**(Tensor)
+  * **y**(Tensor)
+* return a tensor of shape equal to the broadcasted shape of `condition`
+
+## Random sampling
+
+> `torch.manual_seed(seed)`
