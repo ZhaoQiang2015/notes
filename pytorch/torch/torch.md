@@ -479,3 +479,138 @@ else:           $y_i$
 ## Random sampling
 
 > `torch.manual_seed(seed)`
+
+设置一个种子来产生随机数
+
+* `Parameters`
+  * **seet**(int) - 种子
+
+> `torch.initial_seed()`
+
+返回初始的随机种子
+
+> `torch.get_rng_state()`
+
+返回随机数生成器状态
+
+> `torch.set_rng_state(new_state)`
+
+设置随机数生成器状态
+
+* `Parameter`
+  * **new_state**(torch.ByteTensor) - 要设置的状态
+
+> `torch.bernoulli(input, *, generator=None, out=None) -> Tensor`
+
+draws binary random numbers(0 or 1) from a Bernoulli distribution.
+`out`可以为`integral`类型，`input`必须为`floating`类型
+
+* `Parameters`
+  * **input**(Tensor) - 包含概率值的输入tensor
+  * **out**(Tensor, optional) - 输出tensor
+
+> `torch.multinomial(input, num_samples, replacement=False, out=None) -> LongTensor`
+
+`input`中的每行元素可以看作采样的权重。
+`num_samples`对每行的采样次数，不能大于每行的元素个数。且不采为0的元素。
+`replacement`是否可以重复采样。
+`out`返回的是`input`中采中元素的下标。
+
+* `Parameters`
+  * **input**(Tensor) - input tensor containing probabilities
+  * **num_samples**(int) - number of samples to draw
+  * **replacement**(bool, optional) - whether to draw with replacement or not
+  * **out**(Tensor, optional)
+
+> `torch.normal(mean, std, out=None) -> Tensor`
+
+返回一个正态分布随机tensor
+
+* `Parameters`
+  * **mean**(Tensor) - 每个元素的均值组成的Tensor
+  * **std**(Tensor) - 每个元素的标准差组成的Tensor
+  * **out**(Tensor, optional)
+
+> `torch.normal(mean=0.0, std, out=None) -> Tensor`
+
+`mean`为一个数，应用于所有元素
+
+* `Parameters`
+  * **mean**(float, optional)
+  * **std**(Tensor)
+  * **out**(Tensor, optional)
+
+> `torch.normal(mean, std=1.0, out=None) -> Tensor`
+
+同上，`std`是一个数，应用于所有元素
+
+* `Parameters`
+  * **mean**(Tensor)
+  * **std**(float, optional)
+  * **out**(Tensor, optional)
+
+> `torch.rand(*sizes, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False) -> Tensor`
+
+从[0, 1)中进行远行均匀分布的采样，大为`sizes`
+
+* `Parameters`
+  * **sizes**(int...) - 形状大小
+  * **out**(Tensor, optional)
+  * **dtype**(`torch.dtype`, optional)
+  * **layout**(`torch.layout`, optional)
+  * **device**(`torch.device`, optional)
+  * **requires_grad**(bool, optional)
+
+> `torch.rand_like(input, dtype=None, layout=None, device=None, requires_grad=False) -> Tensor`
+
+跟上类似，只是`out`的shape跟`input`的一致。
+
+> `torch.randint(low=0, high, size, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=False) -> Tensor`
+
+返回`[low - hight)`中均匀采样出的整数。
+
+* `Parameters`
+  * **low**(int, optional) - 采样的最小整数
+  * **high**(int) - 采样的最大整数的上限（不到）
+  * size(tuple) - a tuple defining the shape of the output tensor
+  * **out**(Tensor, optional)
+  * **dtype**(`torch.dtype`, optional)
+  * **layout**(`torch.layout`, optional)
+  * **device**(`torch.device`, optional)
+  * **requires_grad**(bool, optional)
+
+> `torch.randint_like(input, low=0, high, dtype=None, layout=torch.strided, device=None, requires_grad=False) -> Tensor`
+
+同上。
+
+> `torch.randn(*sizes, out=None, dtype=None, layout=torch.strided, device=None, requires_grad=Flase) -> Tensor`
+
+从均值为0，标准差为1的标准正态分布中采样
+
+> `torch.randn_like(input, dtype=None, layout=None, device=None, requires_grad=False) -> Tensor`
+
+同上。
+
+> `torch.randperm(n, out=None, dtype=torch.int64, layout=torch.strided, device=None, requires_grad=False) -> Tensor`
+
+返回[0-(n-1))间整数的随机排列
+
+```python
+>>> torch.randperm(4)
+tensor([2, 1, 0, 3])
+```
+
+### In-place random sampling
+
+* `torch.Tensor.bernoulli_()`
+* `torch.Tensor.cauchy_()`
+* `torch.Tensor.exponential_()`
+* `torch.Tensor.geometric_()`
+* `torch.Tensor.log_normal_()`
+* `torch.Tensor.normal_()`
+* `torch.Tensor.random_()`
+* `torch.Tensor.uniform_()`
+
+### Quasi-random sampling
+
+
